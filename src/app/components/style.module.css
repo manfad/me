@@ -1,0 +1,60 @@
+/* components/OldNotebook.module.css */
+
+.notebookContainer {
+    position: relative;
+}
+
+.notebook {
+    width: 600px;
+    background: white;
+    box-shadow: 
+        0 2px 5px rgba(0,0,0,0.1),
+        0 10px 30px rgba(0,0,0,0.4),
+        inset 0 0 100px rgba(101, 67, 33, 0.08);
+    position: relative;
+    padding: 70px 80px 70px 40px;
+    min-height: 500px;
+    border-radius: 2px;
+}
+
+
+
+/* Horizontal lines */
+.lines {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        rgba(150, 130, 110, 0.4) 31px,
+        rgba(150, 130, 110, 0.4) 32px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 3;
+    line-height: 32px;
+    color: #1a1a1a;
+    outline: none;
+    min-height: 600px;
+    font-size: 16px;
+    padding-top: 0;
+    word-wrap: break-word;
+    display: none;
+}
+
+.content.active {
+    display: block;
+}
+
+.content:empty::before {
+    content: 'Write your thoughts...';
+    color: rgba(100, 80, 60, 0.4);
+    font-style: italic;
+}
