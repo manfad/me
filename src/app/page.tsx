@@ -7,7 +7,7 @@ export default function Home() {
     <div className="pageWrapper" >
       <Paper>
         <p>Name :
-          <span className="font-bold ms-2">
+          <span className="font-bold ms-2 font-q-2xl">
 
             <RoughNotation type="highlight" color="lime" show >
               MANFRED THAM
@@ -28,26 +28,25 @@ export default function Home() {
           </span>
         </p>
         <p>Tech Skills : </p>
-        <ul style={{ paddingLeft: '30px' }}>
+        <ul style={{ paddingLeft: '30px',fontSize: '12px' }}>
           <li>Frontend:           <RoughNotation type="highlight" color="yellow" show >
-            Vue, Nuxt, React, Next </RoughNotation></li>
+            Vue / React </RoughNotation></li>
           <li>Backend :          <RoughNotation type="highlight" color="yellow" show >
             Node.js / Java</RoughNotation></li>
         </ul>
         <p>Other Skills :</p>
-        <ul style={{ paddingLeft: '30px' }}>
-          <li>Trilingual :
-            Chinese, English, Melayu</li>
+        <ul style={{ paddingLeft: '30px',fontSize: '12px' }}>
+          <li>Chinese, English, Melayu</li>
           <li>Adaptable and quick learner</li>
           <li>Adventurous in exploring new tools</li>
         </ul>
         <br />
         <RoughNotation type="bracket" show animate={false} brackets={['left', 'right']}>
-          <p>Contact : </p>
+          <p>Contact me : </p>
 
           <ul>
             <li>
-              <Mail className="inline" size={14} /> : <a href="mailto:">manfad99@gmail.com</a>
+              <Mail className="inline" size={14} /> : <a href="mailto:manfad99@gmail.com">manfad99@gmail.com</a>
             </li>
             <li>
               <RoughNotation type="crossed-off" color="red" show animate={false}>

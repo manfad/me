@@ -1,18 +1,20 @@
-/* components/OldNotebook.module.css */
-
 .notebookContainer {
     position: relative;
+    display: flex;
+    justify-content: center; /* keeps it centered */
+    padding: 1rem;
 }
 
 .notebook {
-    width: 600px;
+    width: 100%;
+    max-width: 800px;
     background: white;
     box-shadow: 
         0 2px 5px rgba(0,0,0,0.1),
         0 10px 30px rgba(0,0,0,0.4),
         inset 0 0 100px rgba(101, 67, 33, 0.08);
     position: relative;
-    padding: 70px 80px 70px 40px;
+    padding: 2rem 2.5rem 2rem 1.5rem; /* use rem instead of px */
     min-height: 500px;
     border-radius: 2px;
 }
@@ -22,7 +24,7 @@
 /* Horizontal lines */
 .lines {
     position: absolute;
-    top: 35px;
+    top: 2rem;
     left: 0;
     right: 0;
     bottom: 0;
@@ -42,7 +44,6 @@
     line-height: 32px;
     color: #1a1a1a;
     outline: none;
-    min-height: 600px;
     font-size: 16px;
     padding-top: 0;
     word-wrap: break-word;
@@ -57,4 +58,31 @@
     content: 'Write your thoughts...';
     color: rgba(100, 80, 60, 0.4);
     font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .notebook {
+    padding: 1.5rem;
+    min-height: 400px;
+  }
+  .content {
+    font-size: 0.9rem;
+    line-height: 28px;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notebook {
+    padding: 1rem;
+    min-height: 300px;
+  }
+  .content {
+    font-size: 0.85rem;
+    line-height: 24px;
+    min-height: 50px;
+  }
+  .lines{
+    top: 0.5rem;
+  }
 }
