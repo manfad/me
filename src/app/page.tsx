@@ -1,4 +1,5 @@
 "use client";
+
 import { Memo } from "./components/Memo";
 import Note from "./components/Note";
 import { Linkedin, Github, Mail } from "lucide-react";
@@ -101,7 +102,7 @@ export default function Home() {
           >
             <h2 className="font-bold text-xl mb-4">About Me</h2>
             <p className="mb-4">
-              I'm a passionate fullstack developer with experience in building modern web applications.
+              I am a passionate fullstack developer with experience in building modern web applications.
             </p>
             <p className="mb-4">
               I love creating elegant solutions to complex problems and continuously learning new technologies.
