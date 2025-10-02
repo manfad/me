@@ -17,12 +17,3 @@
     color: #fff;
 }
 
-
-
-.pageWrapper {
-  padding: 2rem;
-  background: radial-gradient(circle at center, #1a1a1a 0%, #000 80%);
-  width: 500px;
-  min-height: 650px;
-  border-radius: 0.5rem;
-}
