@@ -1,5 +1,3 @@
-'use client'
-
 interface PaperProps {
   children: React.ReactNode;
 }
@@ -10,7 +8,6 @@ export default function Paper({ children }: PaperProps) {
          style={{
            boxShadow: '0 2px 5px rgba(0,0,0,0.1), 0 10px 30px rgba(0,0,0,0.4), inset 0 0 100px rgba(101, 67, 33, 0.08)'
          }}>
-      {/* Horizontal lines */}
       <div className="absolute top-8 left-3 right-3 bottom-0 pointer-events-none z-0"
            style={{
              backgroundImage: 'repeating-linear-gradient(transparent, transparent 31px, rgba(150, 130, 110, 0.4) 31px, rgba(150, 130, 110, 0.4) 32px)'

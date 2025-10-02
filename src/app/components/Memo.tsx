@@ -1,5 +1,3 @@
-"use client";
-import { useState } from 'react';
 
 interface MemoProps {
   title?: string;
@@ -10,7 +8,6 @@ interface MemoProps {
 }
 
 export function Memo({children, title = '', rotation = -5,size, position = { x: 200, y: 400 } }: MemoProps) {
-  const [text, setText] = useState(title);
 
   return (
     <div
