@@ -4,12 +4,15 @@
 import { useState } from 'react'
 import styles from './style.module.css'
 
-export default function Paper({ children }: { children: React.ReactNode }) {
+interface PaperProps {
+  children: React.ReactNode;
+}
+
+export default function Paper({  children }: PaperProps) {
   return (
     <div className={styles.notebookContainer}>
       <div className={styles.notebook}>
         <div className={styles.lines}></div>
-        <div className={styles.marginLine}></div>
         
         <div 
           className={`${styles.content} ${styles.active}`}

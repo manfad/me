@@ -1,22 +1,31 @@
-.notebookContainer {
-    position: relative;
-    display: flex;
-    justify-content: center; /* keeps it centered */
-    padding: 1rem;
-}
+
 
 .notebook {
     width: 100%;
-    max-width: 800px;
+    min-width: 500px;
+    min-height: 650px;
     background: white;
     box-shadow: 
         0 2px 5px rgba(0,0,0,0.1),
         0 10px 30px rgba(0,0,0,0.4),
         inset 0 0 100px rgba(101, 67, 33, 0.08);
     position: relative;
-    padding: 2rem 2.5rem 2rem 1.5rem; /* use rem instead of px */
-    min-height: 500px;
+    padding: 2rem 2.5rem 2rem 1.5rem; 
     border-radius: 2px;
+}
+.content {
+    position: relative;
+    z-index: 3;
+    line-height: 32px;
+    color: #1a1a1a;
+    outline: none;
+    padding-top: 0;
+    word-wrap: break-word;
+    display: none;
+}
+
+.content.active {
+    display: block;
 }
 
 
@@ -25,8 +34,8 @@
 .lines {
     position: absolute;
     top: 2rem;
-    left: 0;
-    right: 0;
+    left: 0.7rem;
+    right: 0.7rem;
     bottom: 0;
     background-image: repeating-linear-gradient(
         transparent,
@@ -38,28 +47,9 @@
     z-index: 1;
 }
 
-.content {
-    position: relative;
-    z-index: 3;
-    line-height: 32px;
-    color: #1a1a1a;
-    outline: none;
-    font-size: 16px;
-    padding-top: 0;
-    word-wrap: break-word;
-    display: none;
-}
 
-.content.active {
-    display: block;
-}
 
-.content:empty::before {
-    content: 'Write your thoughts...';
-    color: rgba(100, 80, 60, 0.4);
-    font-style: italic;
-}
-
+/* 
 @media (max-width: 768px) {
   .notebook {
     padding: 1.5rem;
@@ -85,4 +75,4 @@
   .lines{
     top: 0.5rem;
   }
-}
+} */
