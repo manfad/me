@@ -12,10 +12,9 @@ interface NoteProps {
 
 export default function Note({rotation, children, bookmarkText, bookmarkColor, onClick, isActive}: NoteProps) {
   return (
-    <div className="w-[500px] min-h-[650px] rounded-lg"
+    <div className="w-90 min-h-[650px] rounded-lg"
          style={{
            transform: `rotate(${rotation}deg)`,
-           background: 'radial-gradient(circle at center, #1a1a1a 0%, #000 80%)'
          }}
     >
       <Bookmark 

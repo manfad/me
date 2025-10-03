@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-black">
-      <div className="relative w-[500px] min-h-[650px]">
+      <div className="relative w-100 min-h-[650px]">
         {/* Intro Paper */}
         <div 
           className="absolute inset-0 transition-all duration-500" 
@@ -29,13 +29,11 @@ export default function Home() {
           >
             <p>Name :
               <span className="font-bold ms-2 font-q-2xl">
-                <RoughNotation type="highlight" color="lime" show>
-                  MANFRED THAM
-                </RoughNotation>
+                 MANFRED THAM
               </span>
             </p>
             <p>Role :
-              <span className="font-bold ms-2">
+              <span className="font-bold">
                 <RoughNotation type="underline" color="blue" show>
                   Fullstack Developer
                 </RoughNotation>
@@ -66,7 +64,7 @@ export default function Home() {
             <Memo
               title="Contact Me"
               rotation={-10}
-              position={{ x: 100, y: 380 }}
+              position={{ x: 60, y: 380 }}
               size={{ width: 250, height: 180 }}
             >
               <ul>
@@ -88,7 +86,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 left-6 transition-all duration-500" 
           style={{
-            top: activePage === 'about' ? '40px' : '20px',
+            top: activePage === 'about' ? '40px' : '13px',
             zIndex: activePage === 'about' ? 3 : 2,
             transform: activePage === 'about' ? 'scale(1) translate(0, 0)' : 'scale(0.95) ',
           }}
@@ -100,13 +98,11 @@ export default function Home() {
             onClick={() => setActivePage('about')}
             isActive={activePage === 'about'}
           >
-            <h2 className="font-bold text-xl mb-4">About Me</h2>
-            <p className="mb-4">
+            <h2 className="font-bold text-xl">About Me</h2>
+              <RoughNotation type="highlight" color="yellow" multiline show>
               I am a passionate fullstack developer with experience in building modern web applications.
-            </p>
-            <p className="mb-4">
               I love creating elegant solutions to complex problems and continuously learning new technologies.
-            </p>
+            </RoughNotation>
             <div className="mt-8">
               <h3 className="font-semibold mb-2">Interests:</h3>
               <ul style={{ listStyle: 'disc', paddingLeft: '30px', fontSize: '14px' }}>
@@ -123,7 +119,7 @@ export default function Home() {
         <div 
           className="absolute inset-0 left-10 transition-all duration-500" 
           style={{ 
-            top: activePage === 'projects' ? '60px' : '50px',
+            top: activePage === 'projects' ? '60px' : '40px',
             zIndex: activePage === 'projects' ? 3 : 1,
             transform: activePage === 'projects' ? 'scale(1) translate(0, 0)' : 'scale(0.95)',
           }}
