@@ -1,27 +1,32 @@
-
 interface MemoProps {
-  title?: string;
-  rotation?: number;
-  position?: { x: number; y: number };
-  children?: React.ReactNode;
-  size?:{width:number; height:number }
+  title?: string
+  rotation?: number
+  position?: { x: number; y: number }
+  children?: React.ReactNode
+  size?: { width: number; height: number }
 }
 
-export function Memo({children, title = '', rotation = -5,size, position = { x: 200, y: 400 } }: MemoProps) {
-
+export function Memo({
+  children,
+  title = "",
+  rotation = -5,
+  size = { width: 200, height: 150 },
+  position = { x: 200, y: 400 },
+}: MemoProps) {
   return (
     <div
-      className="absolute bg-yellow-100 shadow-lg border border-yellow-200 p-4"
+      className="relative bg-yellow-100 shadow-lg border border-yellow-200 p-3 sm:p-4"
       style={{
-        width: size?.width,
-        height: size?.height,
+        width: "100%",
+        maxWidth: `min(${size.width}px, 80vw)`,
+        aspectRatio: 2 / 1,
         transform: `rotate(${rotation}deg)`,
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        left: `min(${position.x}px, 10vw)`,
+        top: `min(${position.y}px, 5vh)`,
       }}
     >
-      <div className="text-center font-handwriting text-sm mb-2 font-semibold">{title}</div>
+      <div className="text-center text-xs sm:text-sm mb-2 font-semibold">{title}</div>
       {children}
     </div>
-  );
+  )
 }
