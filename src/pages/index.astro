@@ -8,42 +8,44 @@ import ContactLinks from '../components/ContactLinks.vue'
 import StackChips from '../components/StackChips.vue'
 
 const frontend = [
-  { label: 'Vue', icon: '/icons/vuedotjs.svg' },
-  { label: 'React', icon: '/icons/react.svg' },
-  { label: 'TanStack', icon: '/icons/tanstack.svg' },
-  { label: 'Next.js', icon: '/icons/nextdotjs.svg', inv: true },
-  { label: 'Astro', icon: '/icons/astro.svg' },
+  { label: 'Vue', icon: '/icons/vuedotjs.svg', href: 'https://vuejs.org' },
+  { label: 'React', icon: '/icons/react.svg', href: 'https://react.dev' },
+  { label: 'TanStack', icon: '/icons/tanstack.svg', href: 'https://tanstack.com' },
+  { label: 'Next.js', icon: '/icons/nextdotjs.svg', inv: true, href: 'https://nextjs.org' },
+  { label: 'Astro', icon: '/icons/astro.svg', href: 'https://astro.build' },
 ]
 
 const backend = [
-  { label: 'Express', icon: '/icons/express.svg', inv: true },
-  { label: 'Hono', icon: '/icons/hono.svg' },
-  { label: 'Spring Boot', icon: '/icons/spring.svg' },
-  { label: 'PostgreSQL', icon: '/icons/postgresql.svg' },
-  { label: 'MySQL', icon: '/icons/mysql.svg' },
-  { label: 'SQLite', icon: '/icons/sqlite.svg' },
+  { label: 'Express', icon: '/icons/express.svg', inv: true, href: 'https://expressjs.com' },
+  { label: 'Hono', icon: '/icons/hono.svg', href: 'https://hono.dev' },
+  { label: 'Spring Boot', icon: '/icons/spring.svg', href: 'https://spring.io/projects/spring-boot' },
+  { label: 'PostgreSQL', icon: '/icons/postgresql.svg', href: 'https://www.postgresql.org' },
+  { label: 'MySQL', icon: '/icons/mysql.svg', href: 'https://www.mysql.com' },
+  { label: 'SQLite', icon: '/icons/sqlite.svg', href: 'https://sqlite.org' },
 ]
 
 const agents = [
-  { label: 'Claude Code', icon: '/icons/claudecode.svg' },
-  { label: 'Codex', icon: '/icons/codex.svg' },
-  { label: 'Cursor', icon: '/icons/cursor.svg', inv: true },
-  { label: 'Kimi', icon: '/icons/kimi.svg', inv: true },
+  { label: 'Claude Code', icon: '/icons/claudecode.svg', href: 'https://www.claude.com/product/claude-code' },
+  { label: 'Codex', icon: '/icons/codex.svg', href: 'https://openai.com/codex' },
+  { label: 'Cursor', icon: '/icons/cursor.svg', inv: true, href: 'https://cursor.com' },
+  { label: 'Kimi', icon: '/icons/kimi.svg', inv: true, href: 'https://www.kimi.com' },
+]
+
+const keyboard = [
+  { label: 'Kinesis Advantage 2', icon: '/icons/keyboard.svg', inv: true, href: 'https://kinesis-ergo.com/shop/advantage2/' },
+]
+
+const workspace = [
+  { label: 'Neovim', icon: '/icons/neovim.svg', href: 'https://neovim.io' },
+  { label: 'tmux', icon: '/icons/tmux.svg', href: 'https://github.com/tmux/tmux' },
+  { label: 'zsh', icon: '/icons/zsh.svg', href: 'https://www.zsh.org' },
+  { label: 'Ghostty', icon: '/icons/ghostty.svg', inv: true, href: 'https://ghostty.org' },
 ]
 
 const timeline = [
   '2023 — graduated from Swinburne University of Technology, Sarawak',
   '2023–2025 — programmer & IT support at Sinatech, as vendor for JAS (Sabah Water Department) and JTU (Sabah Lands & Surveys Department)',
   '2025–now — working privately as a fullstack developer, shipping systems and providing IT support',
-]
-
-const lolIcon = `<a class="icon-link" href="https://www.leagueoflegends.com" target="_blank" rel="noopener" aria-label="League of Legends"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m1.912 0 1.212 2.474v19.053L1.912 24h14.73l1.337-4.682H8.33V0ZM12 1.516c-.913 0-1.798.112-2.648.312v1.74a9.738 9.738 0 0 1 2.648-.368c5.267 0 9.536 4.184 9.536 9.348a9.203 9.203 0 0 1-2.3 6.086l-.273.954-.602 2.112c2.952-1.993 4.89-5.335 4.89-9.122C23.25 6.468 18.213 1.516 12 1.516Zm0 2.673c-.924 0-1.814.148-2.648.414v13.713h8.817a8.246 8.246 0 0 0 2.36-5.768c0-4.617-3.818-8.359-8.529-8.359zM2.104 7.312A10.858 10.858 0 0 0 .75 12.576c0 1.906.492 3.7 1.355 5.266z"/></svg></a>`
-
-const beyond = [
-  `League of Legends player for 13+ years ${lolIcon}`,
-  "Serial environment tweaker — I use Neovim (btw), sometimes Cursor, and I'm currently adapting to herdr after years of tmux",
-  'I pair with AI agents daily — Claude Code, Codex and Kimi',
-  'Keyboard collector: my daily driver is a Kinesis Advantage2, alongside a Dygma, Sofle Plus 2, Silakka54, Corne and HHKB Studio',
 ]
 
 const projects = [
@@ -112,8 +114,9 @@ const projects = [
   <h2 id="projects"><Mark client:visible type="box" color="#4467c4">Projects</Mark></h2>
   <ProjectCards client:only="vue" projects={projects} />
 
-  <h2 id="beyond"><Mark client:visible type="highlight" color="#b7e4c7">Beyond code</Mark></h2>
-  <RoughList client:only="vue" items={beyond} />
+  <h2 id="beyond"><Mark client:visible type="highlight" color="#b7e4c7">Fun facts about me</Mark></h2>
+  <StackChips client:only="vue" label="Daily driver" items={keyboard} />
+  <StackChips client:only="vue" label="Working environment, CLI first" items={workspace} />
 
   <Doodle client:only="vue" />
 

@@ -1,12 +1,24 @@
 <script setup lang="ts">
 import { RButton, RSpace } from 'roughness'
 
-defineProps<{ items: { label: string; icon?: string; inv?: boolean }[] }>()
+defineProps<{
+  items: { label: string; icon?: string; inv?: boolean; href?: string }[]
+  label?: string
+}>()
 </script>
 
 <template>
-  <RSpace class="chip-row">
-    <RButton v-for="it in items" :key="it.label" tag="span" class="chip">
+  <RSpace class="chip-row" align="center">
+    <span v-if="label" class="row-label">{{ label }} —</span>
+    <RButton
+      v-for="it in items"
+      :key="it.label"
+      :tag="it.href ? 'a' : 'span'"
+      :href="it.href"
+      :target="it.href ? '_blank' : undefined"
+      :rel="it.href ? 'noopener' : undefined"
+      class="chip"
+    >
       <img
         v-if="it.icon"
         :class="{ inv: it.inv }"
@@ -25,11 +37,14 @@ defineProps<{ items: { label: string; icon?: string; inv?: boolean }[] }>()
   margin: 0.9rem 0;
 }
 
+.row-label {
+  color: var(--fg-soft);
+}
+
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  cursor: default;
 }
 
 .chip img {

@@ -26,14 +26,10 @@ const draw = () => {
 }
 
 const spy = () => {
-  let current = props.sections[0]?.id
-  for (const s of props.sections) {
-    const el = document.getElementById(s.id)
-    if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) current = s.id
-  }
-  if (innerHeight + scrollY >= document.body.scrollHeight - 4)
-    current = props.sections[props.sections.length - 1].id
-  active.value = current
+  const max = document.body.scrollHeight - innerHeight
+  const progress = max > 0 ? scrollY / max : 0
+  const idx = Math.min(props.sections.length - 1, Math.floor(progress * props.sections.length))
+  active.value = props.sections[idx].id
 }
 
 watch(active, draw)
