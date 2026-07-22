@@ -8,37 +8,40 @@ defineProps<{
 </script>
 
 <template>
-  <RSpace class="chip-row" align="center">
-    <span v-if="label" class="row-label">{{ label }} —</span>
-    <RButton
-      v-for="it in items"
-      :key="it.label"
-      :tag="it.href ? 'a' : 'span'"
-      :href="it.href"
-      :target="it.href ? '_blank' : undefined"
-      :rel="it.href ? 'noopener' : undefined"
-      class="chip"
-    >
-      <img
-        v-if="it.icon"
-        :class="{ inv: it.inv }"
-        :src="it.icon"
-        alt=""
-        width="18"
-        height="18"
-      />
-      {{ it.label }}
-    </RButton>
-  </RSpace>
+  <div class="chip-group">
+    <p v-if="label" class="row-label">{{ label }}</p>
+    <RSpace class="chip-row" align="center">
+      <RButton
+        v-for="it in items"
+        :key="it.label"
+        :tag="it.href ? 'a' : 'span'"
+        :href="it.href"
+        :target="it.href ? '_blank' : undefined"
+        :rel="it.href ? 'noopener' : undefined"
+        class="chip"
+      >
+        <img
+          v-if="it.icon"
+          :class="{ inv: it.inv }"
+          :src="it.icon"
+          alt=""
+          width="18"
+          height="18"
+        />
+        {{ it.label }}
+      </RButton>
+    </RSpace>
+  </div>
 </template>
 
 <style scoped>
-.chip-row {
+.chip-group {
   margin: 0.9rem 0;
 }
 
 .row-label {
   color: var(--fg-soft);
+  margin: 0 0 0.4rem;
 }
 
 .chip {
