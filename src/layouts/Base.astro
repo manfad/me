@@ -2,6 +2,15 @@
 import 'roughness/dist/style.css'
 import '../styles/fonts.css'
 import '../styles/global.css'
+import ScrollSpy from '../components/ScrollSpy.vue'
+
+const sections = [
+  { id: 'intro', label: 'Intro' },
+  { id: 'timeline', label: 'Timeline' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'beyond', label: 'Beyond code' },
+  { id: 'contact', label: 'Contact' },
+]
 
 interface Props {
   title?: string
@@ -46,13 +55,7 @@ const {
       </nav>
     </header>
 
-    <nav class="scrollspy" aria-label="Sections">
-      <a href="#intro" aria-label="Intro"></a>
-      <a href="#timeline" aria-label="Timeline"></a>
-      <a href="#projects" aria-label="Projects"></a>
-      <a href="#beyond" aria-label="Beyond code"></a>
-      <a href="#contact" aria-label="Contact"></a>
-    </nav>
+    <ScrollSpy client:only="vue" sections={sections} />
 
     <main>
       <slot />

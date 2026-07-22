@@ -139,25 +139,22 @@ html.dark .mark-highlight {
 .scrollspy a {
   display: flex;
   align-items: center;
-  height: 0.6rem;
   border: none;
+  color: var(--fg-softer);
+  transition: color 0.2s ease;
 }
 
-.scrollspy a::after {
-  content: '';
-  width: 1rem;
-  height: 2px;
-  background: var(--fg-softer);
-  transition: width 0.25s ease, background-color 0.2s ease;
+.scrollspy a:hover {
+  color: var(--fg-soft);
 }
 
-.scrollspy a:hover::after {
-  background: var(--fg-soft);
+.scrollspy a.active {
+  color: var(--fg);
 }
 
-.scrollspy a.active::after {
-  width: 2.2rem;
-  background: var(--fg);
+.scrollspy svg {
+  display: block;
+  overflow: visible;
 }
 
 @media (max-width: 960px) {
