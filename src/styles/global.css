@@ -25,19 +25,6 @@ html.dark {
   color-scheme: dark;
 }
 
-/* graph-paper background */
-#grid-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  --r-grid-guide-cell-size: 1.1rem;
-  --r-grid-guide-color: rgb(0 0 0 / 6.5%);
-}
-
-html.dark #grid-bg {
-  --r-grid-guide-color: rgb(255 255 255 / 6%);
-}
-
 /* roughness reads these to color its strokes */
 :root {
   --r-common-color: var(--fg);

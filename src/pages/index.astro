@@ -6,25 +6,31 @@ import ProjectCards from '../components/ProjectCards.vue'
 
 const projects = [
   {
-    name: 'Portfolio',
-    description: 'This site — hand-drawn vibes with Astro, Vue islands and roughness.',
+    name: 'TabsFlow',
+    description:
+      'Turn indented notes into interactive node diagrams — a cross-platform desktop app with JSON transform and real-time flow visualisation.',
+    tags: ['Vue', 'TypeScript', 'Tauri'],
+    link: 'https://tabsflow.vercel.app',
+  },
+  {
+    name: 'hibsf.my',
+    description:
+      'Website for a Black Soldier Fly farm in Keningau, Sabah — breeding process, products and farm tours.',
+    tags: ['Astro'],
+    link: 'https://hibsf.my',
+  },
+  {
+    name: 'yimei.my',
+    description:
+      'Website for Yimei Environment Protection Technology — industrial wastewater treatment systems, giving every drop a second life.',
+    tags: ['Astro'],
+    link: 'https://yimei.my',
+  },
+  {
+    name: 'This site',
+    description: 'Hand-drawn one-pager with Astro, Vue islands, roughness and rough-notation.',
     tags: ['Astro', 'Vue', 'roughness'],
     link: 'https://github.com/manfad',
-  },
-  {
-    name: 'Fullstack Web App',
-    description: 'A fullstack web application using React and Node.js.',
-    tags: ['React', 'Node.js'],
-  },
-  {
-    name: 'E-commerce Platform',
-    description: 'E-commerce platform with a Vue.js frontend.',
-    tags: ['Vue', 'Express'],
-  },
-  {
-    name: 'Realtime Dashboard',
-    description: 'Mobile-responsive dashboard with real-time data.',
-    tags: ['Next.js', 'PostgreSQL'],
   },
 ]
 ---
@@ -50,7 +56,7 @@ const projects = [
   <ul class="soft">
     <li>2023 — graduated from Swinburne University of Technology, Sarawak</li>
     <li>2023–2025 — programmer &amp; IT support at Sinatech</li>
-    <li>Now — building, learning, and rebuilding this site</li>
+    <li>2025–now — working independently, building software and websites for local businesses</li>
   </ul>
 
   <h2><Mark client:visible type="box" color="#4467c4">Projects</Mark></h2>
