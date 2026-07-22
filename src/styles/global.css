@@ -6,11 +6,11 @@
 }
 
 :root {
-  --bg: #fdfdfd;
+  --bg: #faf7f0;
   --fg: #2a2a2a;
   --fg-soft: #7a7a7a;
   --fg-softer: #aaaaaa;
-  --line: #e5e5e5;
+  --line: #e6e1d5;
   --accent: #4467c4;
   --font-hand: 'Excalifont', 'Segoe Print', 'Comic Sans MS', cursive;
 }
@@ -104,6 +104,36 @@ ul {
 /* keep text readable on top of rough-notation highlights in dark mode */
 html.dark .mark-highlight {
   color: #1d1d1d;
+}
+
+/* brand-colored tech names */
+.t-vue {
+  color: #2f63d8;
+}
+
+.t-react {
+  color: #149eca;
+}
+
+html.dark .t-vue {
+  color: #7d9aec;
+}
+
+/* inline icon links (league etc.) */
+.icon-link {
+  border: none;
+}
+
+.icon-link svg {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.12em;
+  fill: currentColor;
+}
+
+.icon-link:hover svg {
+  fill: var(--accent);
 }
 
 .softer {
