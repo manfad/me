@@ -25,6 +25,7 @@ onMounted(() => {
     type: props.type,
     strokeWidth: props.strokeWidth,
     multiline: props.multiline,
+    animate: false,
     ...(props.color ? { color: props.color } : {}),
   })
   annotation.show()

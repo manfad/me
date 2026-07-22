@@ -2,6 +2,31 @@
 import Base from '../layouts/Base.astro'
 import Mark from '../components/Mark.vue'
 import Doodle from '../components/Doodle.vue'
+import ProjectCards from '../components/ProjectCards.vue'
+
+const projects = [
+  {
+    name: 'Portfolio',
+    description: 'This site — hand-drawn vibes with Astro, Vue islands and roughness.',
+    tags: ['Astro', 'Vue', 'roughness'],
+    link: 'https://github.com/manfad',
+  },
+  {
+    name: 'Fullstack Web App',
+    description: 'A fullstack web application using React and Node.js.',
+    tags: ['React', 'Node.js'],
+  },
+  {
+    name: 'E-commerce Platform',
+    description: 'E-commerce platform with a Vue.js frontend.',
+    tags: ['Vue', 'Express'],
+  },
+  {
+    name: 'Realtime Dashboard',
+    description: 'Mobile-responsive dashboard with real-time data.',
+    tags: ['Next.js', 'PostgreSQL'],
+  },
+]
 ---
 
 <Base>
@@ -27,6 +52,9 @@ import Doodle from '../components/Doodle.vue'
     <li>2023–2025 — programmer &amp; IT support at Sinatech</li>
     <li>Now — building, learning, and rebuilding this site</li>
   </ul>
+
+  <h2><Mark client:visible type="box" color="#4467c4">Projects</Mark></h2>
+  <ProjectCards client:only="vue" projects={projects} />
 
   <Doodle client:only="vue" />
 
