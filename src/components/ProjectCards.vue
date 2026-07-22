@@ -9,20 +9,22 @@ interface Project {
 }
 
 defineProps<{ projects: Project[] }>()
+
+const palette = ['primary', 'info', 'success', 'warning']
 </script>
 
 <template>
   <div class="cards">
     <component
       :is="project.link ? 'a' : 'div'"
-      v-for="project in projects"
+      v-for="(project, index) in projects"
       :key="project.name"
       :href="project.link"
       class="card-link"
       :target="project.link ? '_blank' : undefined"
       :rel="project.link ? 'noopener' : undefined"
     >
-      <RCard header class="card">
+      <RCard header class="card" :color="palette[index % palette.length]">
         <template #title>{{ project.name }}</template>
         <RSpace vertical>
           <RText>{{ project.description }}</RText>

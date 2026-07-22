@@ -3,6 +3,23 @@ import Base from '../layouts/Base.astro'
 import Mark from '../components/Mark.vue'
 import Doodle from '../components/Doodle.vue'
 import ProjectCards from '../components/ProjectCards.vue'
+import RoughList from '../components/RoughList.vue'
+import ContactLinks from '../components/ContactLinks.vue'
+
+const timeline = [
+  '2023 — graduated from Swinburne University of Technology, Sarawak',
+  '2023–2025 — programmer & IT support at Sinatech',
+  '2025–now — working independently, building software and websites for local businesses',
+]
+
+const lolIcon = `<a class="icon-link" href="https://www.leagueoflegends.com" target="_blank" rel="noopener" aria-label="League of Legends"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m1.912 0 1.212 2.474v19.053L1.912 24h14.73l1.337-4.682H8.33V0ZM12 1.516c-.913 0-1.798.112-2.648.312v1.74a9.738 9.738 0 0 1 2.648-.368c5.267 0 9.536 4.184 9.536 9.348a9.203 9.203 0 0 1-2.3 6.086l-.273.954-.602 2.112c2.952-1.993 4.89-5.335 4.89-9.122C23.25 6.468 18.213 1.516 12 1.516Zm0 2.673c-.924 0-1.814.148-2.648.414v13.713h8.817a8.246 8.246 0 0 0 2.36-5.768c0-4.617-3.818-8.359-8.529-8.359zM2.104 7.312A10.858 10.858 0 0 0 .75 12.576c0 1.906.492 3.7 1.355 5.266z"/></svg></a>`
+
+const beyond = [
+  `League of Legends player for 13+ years ${lolIcon}`,
+  "Serial environment tweaker — I use Neovim (btw), sometimes Cursor, and I'm currently adapting to herdr after years of tmux",
+  'I pair with AI agents daily — Claude Code, Codex and Kimi',
+  'Keyboard collector: my daily driver is a Kinesis Advantage2, alongside a Dygma, Sofle Plus 2, Silakka54, Corne and HHKB Studio',
+]
 
 const projects = [
   {
@@ -45,8 +62,8 @@ const projects = [
   </p>
 
   <p>
-    On the frontend I work with <Mark client:load type="underline" color="#42b883"><b>Vue</b></Mark>&#32;
-    and <Mark client:load type="underline" color="#61dafb"><b>React</b></Mark>&#32;
+    On the frontend I work with <Mark client:load type="highlight" color="#42b883"><b>Vue</b></Mark>&#32;
+    and <Mark client:load type="highlight" color="#61dafb"><b>React</b></Mark>&#32;
     (plus some Angular when duty calls). On the backend it's <b>Express</b> and&#32;
     <b>Spring Boot</b>, talking to PostgreSQL, MySQL, Oracle or SQLite.
   </p>
@@ -60,40 +77,18 @@ const projects = [
   <Doodle client:only="vue" />
 
   <h2 id="timeline"><Mark client:visible type="highlight" color="#f5e08c">Timeline</Mark></h2>
-  <ul class="soft">
-    <li>2023 — graduated from Swinburne University of Technology, Sarawak</li>
-    <li>2023–2025 — programmer &amp; IT support at Sinatech</li>
-    <li>2025–now — working independently, building software and websites for local businesses</li>
-  </ul>
+  <RoughList client:only="vue" items={timeline} />
 
   <h2 id="projects"><Mark client:visible type="box" color="#4467c4">Projects</Mark></h2>
   <ProjectCards client:only="vue" projects={projects} />
 
   <h2 id="beyond"><Mark client:visible type="highlight" color="#b7e4c7">Beyond code</Mark></h2>
-  <ul class="soft">
-    <li>
-      League of Legends player for 13+ years&#32;
-      <a class="icon-link" href="https://www.leagueoflegends.com" target="_blank" rel="noopener" aria-label="League of Legends">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m1.912 0 1.212 2.474v19.053L1.912 24h14.73l1.337-4.682H8.33V0ZM12 1.516c-.913 0-1.798.112-2.648.312v1.74a9.738 9.738 0 0 1 2.648-.368c5.267 0 9.536 4.184 9.536 9.348a9.203 9.203 0 0 1-2.3 6.086l-.273.954-.602 2.112c2.952-1.993 4.89-5.335 4.89-9.122C23.25 6.468 18.213 1.516 12 1.516Zm0 2.673c-.924 0-1.814.148-2.648.414v13.713h8.817a8.246 8.246 0 0 0 2.36-5.768c0-4.617-3.818-8.359-8.529-8.359zM2.104 7.312A10.858 10.858 0 0 0 .75 12.576c0 1.906.492 3.7 1.355 5.266z"/></svg>
-      </a>
-    </li>
-    <li>
-      Serial environment tweaker — I use Neovim (btw), sometimes Cursor, and I'm currently
-      adapting to herdr after years of tmux
-    </li>
-    <li>I pair with AI agents daily — Claude Code, Codex and Kimi</li>
-    <li>
-      Keyboard collector: my daily driver is a Kinesis Advantage2, alongside a Dygma,
-      Sofle Plus 2, Silakka54, Corne and HHKB Studio
-    </li>
-  </ul>
+  <RoughList client:only="vue" items={beyond} />
 
   <Doodle client:only="vue" />
 
-  <p class="soft" id="contact">
-    Find me on <a href="https://github.com/manfad" target="_blank" rel="noopener">GitHub</a>,&#32;
-    <a href="https://www.linkedin.com/in/manfred-tham-4b951025a/" target="_blank" rel="noopener">LinkedIn</a>,&#32;
-    or drop me a mail at <a href="mailto:manfad99@gmail.com">manfad99@gmail.com</a>.
-  </p>
-
+  <div id="contact">
+    <p class="soft">Find me around the web, or drop me a mail:</p>
+    <ContactLinks client:only="vue" />
+  </div>
 </Base>
