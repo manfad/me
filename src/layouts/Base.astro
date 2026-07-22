@@ -24,11 +24,10 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <script is:inline>
-      const theme =
-        localStorage.getItem('theme') ??
-        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-      document.documentElement.classList.toggle('dark', theme === 'dark')
-      document.documentElement.classList.toggle('grid', localStorage.getItem('grid') === 'on')
+      const mq = matchMedia('(prefers-color-scheme: dark)')
+      const apply = () => document.documentElement.classList.toggle('dark', mq.matches)
+      apply()
+      mq.addEventListener('change', apply)
     </script>
   </head>
   <body>
@@ -46,13 +45,6 @@ const {
         <a href="mailto:manfad99@gmail.com" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" rx="2"/><path d="m2.5 6 9.5 7 9.5-7"/></svg>
         </a>
-        <button id="grid-toggle" aria-label="Toggle grid background" title="Toggle grid background">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
-        </button>
-        <button id="theme-toggle" aria-label="Toggle dark mode">
-          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M1.5 12h3M19.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
-          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
-        </button>
       </nav>
     </header>
 
@@ -64,27 +56,5 @@ const {
       <span>2026 © Manfred Tham · hand-drawn with <a href="https://roughness.vercel.app" target="_blank" rel="noopener">roughness</a> + <a href="https://astro.build" target="_blank" rel="noopener">astro</a></span>
     </footer>
 
-    <script>
-      const root = document.documentElement
-
-      document.getElementById('theme-toggle')!.addEventListener('click', () => {
-        const dark = root.classList.toggle('dark')
-        localStorage.setItem('theme', dark ? 'dark' : 'light')
-      })
-
-      document.getElementById('grid-toggle')!.addEventListener('click', () => {
-        const on = root.classList.toggle('grid')
-        localStorage.setItem('grid', on ? 'on' : 'off')
-      })
-    </script>
-
-    <style is:global>
-      html.dark .sun {
-        display: none;
-      }
-      html:not(.dark) .moon {
-        display: none;
-      }
-    </style>
   </body>
 </html>
