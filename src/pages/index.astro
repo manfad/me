@@ -40,6 +40,15 @@ const workspace = [
   { label: 'zsh', icon: '/icons/zsh.svg', href: 'https://www.zsh.org' },
   { label: 'tmux', icon: '/icons/tmux.svg', href: 'https://github.com/tmux/tmux' },
   { label: 'Neovim', icon: '/icons/neovim.svg', href: 'https://neovim.io' },
+  { label: 'Dotfiles', icon: '/icons/github.svg', inv: true, href: 'https://github.com/manfad/dotfile' },
+]
+
+const keyboards = [
+  'Dygma',
+  'Sofle Plus 2',
+  'Silakka54',
+  'Corne',
+  'HHKB Studio',
 ]
 
 const timeline = [
@@ -55,6 +64,20 @@ const projects = [
       'Turn indented notes into interactive node diagrams — a cross-platform desktop app with JSON transform and real-time flow visualisation.',
     tags: ['Vue', 'TypeScript', 'Tauri'],
     link: 'https://tabsflow.vercel.app',
+  },
+  {
+    name: 'flashpoint',
+    description:
+      'Checkpoint tool for AI-agent coding sessions — one native binary that anchors every agent turn so you can inspect or time-travel without touching git history.',
+    tags: ['Rust', 'CLI', 'DX'],
+    link: 'https://github.com/manfad/flashpoint',
+  },
+  {
+    name: 'YF UI',
+    description:
+      'Reusable Vue 3 admin UI kit — shadcn-style components on UnoCSS, published with its own component registry.',
+    tags: ['Vue', 'UnoCSS', 'shadcn registry'],
+    link: 'https://yf-ui.vercel.app',
   },
   {
     name: 'hibsf.my',
@@ -118,6 +141,8 @@ const projects = [
   <h2 id="beyond"><Mark client:visible type="highlight" color="#b7e4c7">Fun facts about me</Mark></h2>
   <StackChips client:only="vue" label="Daily driver" items={keyboard} />
   <StackChips client:only="vue" label="Working environment" items={workspace} />
+  <p class="soft chip-caption">Keyboard collection</p>
+  <RoughList client:only="vue" items={keyboards} />
 
   <Doodle client:only="vue" />
 

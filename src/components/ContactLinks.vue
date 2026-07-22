@@ -7,15 +7,6 @@ import { RButton, RSpace } from 'roughness'
     <RButton tag="a" href="https://github.com/manfad" target="_blank" rel="noopener" class="cbtn">
       <img class="inv" src="/icons/github.svg" alt="" width="18" height="18" /> GitHub
     </RButton>
-    <RButton
-      tag="a"
-      href="https://www.linkedin.com/in/manfred-tham-4b951025a/"
-      target="_blank"
-      rel="noopener"
-      class="cbtn"
-    >
-      <img class="inv" src="/icons/linkedin.svg" alt="" width="18" height="18" /> LinkedIn
-    </RButton>
     <RButton tag="a" href="https://x.com/manfad" target="_blank" rel="noopener" class="cbtn">
       <img class="inv" src="/icons/x.svg" alt="" width="18" height="18" /> X
     </RButton>
