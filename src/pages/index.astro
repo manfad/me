@@ -5,6 +5,31 @@ import Doodle from '../components/Doodle.vue'
 import ProjectCards from '../components/ProjectCards.vue'
 import RoughList from '../components/RoughList.vue'
 import ContactLinks from '../components/ContactLinks.vue'
+import StackChips from '../components/StackChips.vue'
+
+const frontend = [
+  { label: 'Vue', icon: '/icons/vuedotjs.svg' },
+  { label: 'React', icon: '/icons/react.svg' },
+  { label: 'TanStack', icon: '/icons/tanstack.svg' },
+  { label: 'Next.js', icon: '/icons/nextdotjs.svg', inv: true },
+  { label: 'Astro', icon: '/icons/astro.svg' },
+]
+
+const backend = [
+  { label: 'Express', icon: '/icons/express.svg', inv: true },
+  { label: 'Hono', icon: '/icons/hono.svg' },
+  { label: 'Spring Boot', icon: '/icons/spring.svg' },
+  { label: 'PostgreSQL', icon: '/icons/postgresql.svg' },
+  { label: 'MySQL', icon: '/icons/mysql.svg' },
+  { label: 'SQLite', icon: '/icons/sqlite.svg' },
+]
+
+const agents = [
+  { label: 'Claude Code', icon: '/icons/claudecode.svg' },
+  { label: 'Codex', icon: '/icons/codex.svg' },
+  { label: 'Cursor', icon: '/icons/cursor.svg', inv: true },
+  { label: 'Kimi', icon: '/icons/kimi.svg', inv: true },
+]
 
 const timeline = [
   '2023 — graduated from Swinburne University of Technology, Sarawak',
@@ -57,31 +82,27 @@ const projects = [
 
   <p>
     A <Mark client:load type="underline" color="#4467c4">fullstack developer</Mark> from
-    Sabah, Malaysia, three years in — <b>Vue</b> is home base, and I ship whole products
-    end to end: the UI, the APIs behind it, and the databases underneath.
+    Sabah, Malaysia, three years in —&#32;
+    <Mark client:load type="highlight" color="#42b883"><b>Vue</b> is home base</Mark>, and
+    I ship whole products end to end: the UI, the APIs behind it, and the databases
+    underneath.
+  </p>
+
+  <p>
+    Long term, I'm working toward a career as a&#32;
+    <Mark client:load type="highlight" color="#ffd6a5">DX engineer</Mark> — building the
+    tools and workflows that make other developers faster.
   </p>
 
   <h2 id="stack"><Mark client:visible type="highlight" color="#a5d8ff">Current stack</Mark></h2>
-  <ul class="chips">
-    <li><img src="/icons/vuedotjs.svg" alt="" width="18" height="18" /> Vue</li>
-    <li><img src="/icons/react.svg" alt="" width="18" height="18" /> React</li>
-    <li><img src="/icons/tanstack.svg" alt="" width="18" height="18" /> TanStack</li>
-    <li><img class="inv" src="/icons/nextdotjs.svg" alt="" width="18" height="18" /> Next.js</li>
-  </ul>
-  <p class="soft small">
-    Backed by Express or Spring Boot, on PostgreSQL, MySQL, Oracle or SQLite.
-  </p>
+  <StackChips client:only="vue" items={frontend} />
+  <StackChips client:only="vue" items={backend} />
 
   <p>
     Currently focused on <Mark client:visible type="underline" color="#c47bd1">coding-agent
     skills</Mark> — I work with these daily:
   </p>
-  <ul class="chips">
-    <li><img src="/icons/claudecode.svg" alt="" width="18" height="18" /> Claude Code</li>
-    <li><img src="/icons/codex.svg" alt="" width="18" height="18" /> Codex</li>
-    <li><img class="inv" src="/icons/cursor.svg" alt="" width="18" height="18" /> Cursor</li>
-    <li><img class="inv" src="/icons/kimi.svg" alt="" width="18" height="18" /> Kimi</li>
-  </ul>
+  <StackChips client:only="vue" items={agents} />
 
   <Doodle client:only="vue" />
 
