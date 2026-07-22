@@ -1,0 +1,32 @@
+---
+interface Props {
+  type?: 'underline' | 'box' | 'circle' | 'highlight' | 'strike-through' | 'crossed-off' | 'bracket'
+  color?: string
+  strokeWidth?: number
+}
+
+const { type = 'underline', color, strokeWidth = 1.5 } = Astro.props
+---
+
+<span
+  class={`rn mark-${type}`}
+  data-rn-type={type}
+  data-rn-color={color}
+  data-rn-sw={strokeWidth}><slot /></span>
+
+<script>
+  import { annotate } from 'rough-notation'
+
+  document.fonts.ready.then(() => {
+    for (const el of document.querySelectorAll<HTMLElement>('.rn')) {
+      const annotation = annotate(el, {
+        type: (el.dataset.rnType ?? 'underline') as never,
+        strokeWidth: Number(el.dataset.rnSw ?? 1.5),
+        multiline: true,
+        animate: false,
+        ...(el.dataset.rnColor ? { color: el.dataset.rnColor } : {}),
+      })
+      annotation.show()
+    }
+  })
+</script>

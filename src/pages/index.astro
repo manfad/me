@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro'
-import Mark from '../components/Mark.vue'
+import Mark from '../components/Mark.astro'
 import Doodle from '../components/Doodle.vue'
 import ProjectCards from '../components/ProjectCards.vue'
 import RoughList from '../components/RoughList.vue'
@@ -36,7 +36,7 @@ const workspace = [
   { label: 'zsh', icon: '/icons/zsh.svg', href: 'https://www.zsh.org' },
   { label: 'tmux', icon: '/icons/tmux.svg', href: 'https://github.com/tmux/tmux' },
   { label: 'Neovim', icon: '/icons/neovim.svg', href: 'https://neovim.io' },
-  { label: 'Dotfiles', icon: '/icons/github.svg', inv: true, href: 'https://github.com/manfad/dotfile' },
+  { label: 'dotfiles', icon: '/icons/github.svg', inv: true, href: 'https://github.com/manfad/dotfile' },
 ]
 
 const keyboards = [
@@ -103,39 +103,45 @@ const projects = [
   <h1 id="intro">Hey, I'm Manfred Tham</h1>
 
   <p>
-    A <Mark client:load type="underline" color="#4467c4">fullstack developer</Mark> from
+    A <Mark type="underline" color="#4467c4">fullstack developer</Mark> from
     Sabah, Malaysia, three years in —&#32;
-    <Mark client:load type="highlight" color="#42b883"><b>Vue</b> is home base</Mark>, and
+    <Mark type="highlight" color="#42b883"><b>Vue</b> is home base</Mark>, and
     I ship whole products end to end: the UI, the APIs behind it, and the databases
     underneath.
   </p>
 
   <p>
     Long term, I'm working toward a career as a&#32;
-    <Mark client:load type="highlight" color="#ffd6a5">DX engineer</Mark> — building the
+    <Mark type="highlight" color="#ffd6a5">DX engineer</Mark> — building the
     tools and workflows that make other developers faster.
   </p>
 
   <p>
-    Right now I'm deep in <Mark client:load type="underline" color="#c47bd1">AI
+    Right now I'm deep in <Mark type="underline" color="#c47bd1">AI
     engineering</Mark> — building with the AI SDK, designing agent harnesses, writing
     agent skills, and sharpening my prompting. These are part of my everyday toolkit:
   </p>
   <StackChips client:only="vue" items={agents} />
 
-  <h2 id="stack"><Mark client:visible type="highlight" color="#a5d8ff">My stack</Mark></h2>
+  <Doodle client:only="vue" />
+
+  <h2 id="stack"><Mark type="highlight" color="#a5d8ff">My stack</Mark></h2>
   <StackChips client:only="vue" items={frontend} />
   <StackChips client:only="vue" items={backend} />
 
   <Doodle client:only="vue" />
 
-  <h2 id="timeline"><Mark client:visible type="highlight" color="#f5e08c">Timeline</Mark></h2>
+  <h2 id="timeline"><Mark type="highlight" color="#f5e08c">Timeline</Mark></h2>
   <RoughList client:only="vue" items={timeline} />
 
-  <h2 id="projects"><Mark client:visible type="box" color="#4467c4">Projects</Mark></h2>
+  <Doodle client:only="vue" />
+
+  <h2 id="projects"><Mark type="box" color="#4467c4">Projects</Mark></h2>
   <ProjectCards client:only="vue" projects={projects} />
 
-  <h2 id="beyond"><Mark client:visible type="highlight" color="#b7e4c7">Fun facts about me</Mark></h2>
+  <Doodle client:only="vue" />
+
+  <h2 id="beyond"><Mark type="highlight" color="#b7e4c7">Fun facts about me</Mark></h2>
   <StackChips client:only="vue" label="Working environment" items={workspace} />
   <p class="soft chip-caption">Keyboard collection</p>
   <RoughList client:only="vue" items={keyboards} />
