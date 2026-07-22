@@ -36,7 +36,7 @@ const projects = [
 ---
 
 <Base>
-  <h1>Hey, I'm Manfred Tham</h1>
+  <h1 id="intro">Hey, I'm Manfred Tham</h1>
 
   <p>
     A <Mark client:load type="underline" color="#4467c4">fullstack developer</Mark> based in
@@ -45,7 +45,8 @@ const projects = [
   </p>
 
   <p>
-    On the frontend I work with <b class="t-vue">Vue</b> and <b class="t-react">React</b>&#32;
+    On the frontend I work with <Mark client:load type="underline" color="#42b883"><b>Vue</b></Mark>&#32;
+    and <Mark client:load type="underline" color="#61dafb"><b>React</b></Mark>&#32;
     (plus some Angular when duty calls). On the backend it's <b>Express</b> and&#32;
     <b>Spring Boot</b>, talking to PostgreSQL, MySQL, Oracle or SQLite.
   </p>
@@ -58,17 +59,17 @@ const projects = [
 
   <Doodle client:only="vue" />
 
-  <h2><Mark client:visible type="highlight" color="#f5e08c">Timeline</Mark></h2>
+  <h2 id="timeline"><Mark client:visible type="highlight" color="#f5e08c">Timeline</Mark></h2>
   <ul class="soft">
     <li>2023 — graduated from Swinburne University of Technology, Sarawak</li>
     <li>2023–2025 — programmer &amp; IT support at Sinatech</li>
     <li>2025–now — working independently, building software and websites for local businesses</li>
   </ul>
 
-  <h2><Mark client:visible type="box" color="#4467c4">Projects</Mark></h2>
+  <h2 id="projects"><Mark client:visible type="box" color="#4467c4">Projects</Mark></h2>
   <ProjectCards client:only="vue" projects={projects} />
 
-  <h2><Mark client:visible type="highlight" color="#b7e4c7">Beyond code</Mark></h2>
+  <h2 id="beyond"><Mark client:visible type="highlight" color="#b7e4c7">Beyond code</Mark></h2>
   <ul class="soft">
     <li>
       League of Legends player for 13+ years&#32;
@@ -89,9 +90,28 @@ const projects = [
 
   <Doodle client:only="vue" />
 
-  <p class="soft">
+  <p class="soft" id="contact">
     Find me on <a href="https://github.com/manfad" target="_blank" rel="noopener">GitHub</a>,&#32;
     <a href="https://www.linkedin.com/in/manfred-tham-4b951025a/" target="_blank" rel="noopener">LinkedIn</a>,&#32;
     or drop me a mail at <a href="mailto:manfad99@gmail.com">manfad99@gmail.com</a>.
   </p>
+
+  <script>
+    const ids = ['intro', 'timeline', 'projects', 'beyond', 'contact']
+    const links = new Map(
+      ids.map((id) => [id, document.querySelector(`.scrollspy a[href="#${id}"]`)!]),
+    )
+    const spy = () => {
+      let current = ids[0]
+      for (const id of ids) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) current = id
+      }
+      if (innerHeight + scrollY >= document.body.scrollHeight - 4) current = ids[ids.length - 1]
+      links.forEach((a, id) => a.classList.toggle('active', id === current))
+    }
+    addEventListener('scroll', spy, { passive: true })
+    addEventListener('resize', spy, { passive: true })
+    spy()
+  </script>
 </Base>
