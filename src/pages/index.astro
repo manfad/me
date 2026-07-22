@@ -36,10 +36,10 @@ const keyboard = [
 ]
 
 const workspace = [
-  { label: 'Neovim', icon: '/icons/neovim.svg', href: 'https://neovim.io' },
-  { label: 'tmux', icon: '/icons/tmux.svg', href: 'https://github.com/tmux/tmux' },
-  { label: 'zsh', icon: '/icons/zsh.svg', href: 'https://www.zsh.org' },
   { label: 'Ghostty', icon: '/icons/ghostty.svg', inv: true, href: 'https://ghostty.org' },
+  { label: 'zsh', icon: '/icons/zsh.svg', href: 'https://www.zsh.org' },
+  { label: 'tmux', icon: '/icons/tmux.svg', href: 'https://github.com/tmux/tmux' },
+  { label: 'Neovim', icon: '/icons/neovim.svg', href: 'https://neovim.io' },
 ]
 
 const timeline = [
@@ -96,15 +96,16 @@ const projects = [
     tools and workflows that make other developers faster.
   </p>
 
-  <h2 id="stack"><Mark client:visible type="highlight" color="#a5d8ff">Current stack</Mark></h2>
-  <StackChips client:only="vue" items={frontend} />
-  <StackChips client:only="vue" items={backend} />
-
   <p>
-    Currently focused on <Mark client:visible type="underline" color="#c47bd1">coding-agent
-    skills</Mark> — I work with these daily:
+    Right now I'm deep in <Mark client:load type="underline" color="#c47bd1">AI
+    engineering</Mark> — building with the AI SDK, designing agent harnesses, writing
+    agent skills, and sharpening my prompting. These are part of my everyday toolkit:
   </p>
   <StackChips client:only="vue" items={agents} />
+
+  <h2 id="stack"><Mark client:visible type="highlight" color="#a5d8ff">My stack</Mark></h2>
+  <StackChips client:only="vue" items={frontend} />
+  <StackChips client:only="vue" items={backend} />
 
   <Doodle client:only="vue" />
 

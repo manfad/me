@@ -9,18 +9,17 @@ import { RButton, RSpace } from 'roughness'
     </RButton>
     <RButton
       tag="a"
-      color="info"
       href="https://www.linkedin.com/in/manfred-tham-4b951025a/"
       target="_blank"
       rel="noopener"
       class="cbtn"
     >
-      <img src="/icons/linkedin.svg" alt="" width="18" height="18" /> LinkedIn
+      <img class="inv" src="/icons/linkedin.svg" alt="" width="18" height="18" /> LinkedIn
     </RButton>
-    <RButton tag="a" color="neutral" href="https://x.com/manfad" target="_blank" rel="noopener" class="cbtn">
+    <RButton tag="a" href="https://x.com/manfad" target="_blank" rel="noopener" class="cbtn">
       <img class="inv" src="/icons/x.svg" alt="" width="18" height="18" /> X
     </RButton>
-    <RButton tag="a" color="success" href="mailto:manfad99@gmail.com" class="cbtn">
+    <RButton tag="a" href="mailto:manfad99@gmail.com" class="cbtn">
       <img class="inv" src="/icons/mail.svg" alt="" width="18" height="18" /> Email
     </RButton>
   </RSpace>
