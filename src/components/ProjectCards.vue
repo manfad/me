@@ -38,9 +38,9 @@ const palette = ['primary', 'info', 'success', 'warning']
 <style scoped>
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-  gap: 1.25rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
 }
 
 .card-link {
@@ -50,9 +50,35 @@ const palette = ['primary', 'info', 'success', 'warning']
 
 .card {
   height: 100%;
+  --r-card-padding-block: 0.8rem;
+  --r-card-padding-inline: 1rem;
+}
+
+.card :deep(.r-card__header) {
+  justify-content: flex-start;
+  margin-block-end: 0.3rem;
+  inline-size: 100%;
+}
+
+.card :deep(.r-card__title) {
+  --r-element-font-size: 1.02em;
+}
+
+.card :deep(.r-space) {
+  gap: 0.35rem;
+}
+
+.card :deep(.r-text) {
+  font-size: 0.92rem;
+  line-height: 1.55;
 }
 
 .tags {
   color: var(--fg-soft);
+}
+
+.tags:deep(),
+.card .tags {
+  font-size: 0.8rem;
 }
 </style>
