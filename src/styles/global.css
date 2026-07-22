@@ -124,6 +124,37 @@ html.dark .mark-highlight {
   fill: var(--accent);
 }
 
+/* stack / agent chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0;
+  margin: 0.9rem 0;
+  list-style: none;
+}
+
+.chips li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.chips img {
+  display: block;
+}
+
+html.dark img.inv {
+  filter: invert(1);
+}
+
+.small {
+  font-size: 0.9rem;
+}
+
 /* em-dash scrollspy */
 .scrollspy {
   position: fixed;
