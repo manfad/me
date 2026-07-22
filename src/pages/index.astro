@@ -50,7 +50,7 @@ const keyboards = [
 
 const timeline = [
   '2023 — graduated from Swinburne University of Technology, Sarawak',
-  '2023–2025 — programmer & IT support at Sinatech, as vendor for JAS (Sabah Water Department) and JTU (Sabah Lands & Surveys Department)',
+  '2023–2025 — programmer & IT support at Sinatech Sdn. Bhd., working as a vendor for Sabah government departments',
   '2025–now — working privately as a fullstack developer, shipping systems and providing IT support',
 ]
 
@@ -72,9 +72,15 @@ const projects = [
   {
     name: 'YF UI',
     description:
-      'Reusable Vue 3 admin UI kit — shadcn-style components on UnoCSS, published with its own component registry.',
-    tags: ['Vue', 'UnoCSS', 'shadcn registry'],
+      'Custom shadcn registry for React — my own component collection, installable straight through the shadcn CLI.',
+    tags: ['React', 'shadcn registry'],
     link: 'https://yf-ui.vercel.app',
+  },
+  {
+    name: 'yfui',
+    description: 'Reusable Vue 3 admin UI kit — shadcn-style components built on UnoCSS.',
+    tags: ['Vue', 'UnoCSS'],
+    link: 'https://github.com/manfad/yfui',
   },
   {
     name: 'hibsf.my',
@@ -126,7 +132,7 @@ const projects = [
 
   <Doodle client:only="vue" />
 
-  <h2 id="stack"><Mark type="highlight" color="#a5d8ff">My stack</Mark></h2>
+  <h2 id="stack"><Mark type="highlight" color="#a5d8ff">My stacks</Mark></h2>
   <StackChips client:only="vue" items={frontend} />
   <StackChips client:only="vue" items={backend} />
 
