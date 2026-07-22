@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro'
+import Mark from '../components/Mark.vue'
+import Doodle from '../components/Doodle.vue'
+---
+
+<Base>
+  <h1>Hey, I'm Manfred Tham</h1>
+
+  <p>
+    A <Mark client:load type="underline" color="#4467c4">fullstack developer</Mark> based in
+    Sabah, Malaysia. I enjoy building things for the web — from pixel-level UI details to the
+    APIs and databases behind them.
+  </p>
+
+  <p>
+    On the frontend I work with <b>Vue / Nuxt</b> and <b>React / Next</b> (plus some Angular
+    when duty calls). On the backend it's <b>Express</b> and <b>Spring Boot</b>, talking to
+    PostgreSQL, MySQL, Oracle or SQLite.
+  </p>
+
+  <Doodle client:only="vue" />
+
+  <h2><Mark client:visible type="highlight" color="#f5e08c">Timeline</Mark></h2>
+  <ul class="soft">
+    <li>2023 — graduated from Swinburne University of Technology, Sarawak</li>
+    <li>2023–2025 — programmer &amp; IT support at Sinatech</li>
+    <li>Now — building, learning, and rebuilding this site</li>
+  </ul>
+
+  <Doodle client:only="vue" />
+
+  <p class="soft">
+    Find me on <a href="https://github.com/manfad" target="_blank" rel="noopener">GitHub</a>,&#32;
+    <a href="https://www.linkedin.com/in/manfred-tham-4b951025a/" target="_blank" rel="noopener">LinkedIn</a>,&#32;
+    or drop me a mail at <a href="mailto:manfad99@gmail.com">manfad99@gmail.com</a>.
+  </p>
+</Base>

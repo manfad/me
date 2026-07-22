@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro'
+import Mark from '../components/Mark.vue'
+import ProjectCards from '../components/ProjectCards.vue'
+
+const projects = [
+  {
+    name: 'Portfolio',
+    description: 'This site — hand-drawn vibes with Astro, Vue islands and roughness.',
+    tags: ['Astro', 'Vue', 'roughness'],
+    link: 'https://github.com/manfad',
+  },
+  {
+    name: 'Fullstack Web App',
+    description: 'A fullstack web application using React and Node.js.',
+    tags: ['React', 'Node.js'],
+  },
+  {
+    name: 'E-commerce Platform',
+    description: 'E-commerce platform with a Vue.js frontend.',
+    tags: ['Vue', 'Express'],
+  },
+  {
+    name: 'Realtime Dashboard',
+    description: 'Mobile-responsive dashboard with real-time data.',
+    tags: ['Next.js', 'PostgreSQL'],
+  },
+]
+---
+
+<Base title="Projects · Manfred Tham">
+  <h1><Mark client:load type="box" color="#4467c4">Projects</Mark></h1>
+  <p class="soft">Things I've built or am currently poking at.</p>
+  <ProjectCards client:only="vue" projects={projects} />
+</Base>
