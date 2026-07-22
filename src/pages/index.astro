@@ -31,10 +31,6 @@ const agents = [
   { label: 'Kimi', icon: '/icons/kimi.svg', inv: true, href: 'https://www.kimi.com' },
 ]
 
-const keyboard = [
-  { label: 'Kinesis Advantage 2', icon: '/icons/keyboard.svg', inv: true, href: 'https://kinesis-ergo.com/shop/advantage2/' },
-]
-
 const workspace = [
   { label: 'Ghostty', icon: '/icons/ghostty.svg', inv: true, href: 'https://ghostty.org' },
   { label: 'zsh', icon: '/icons/zsh.svg', href: 'https://www.zsh.org' },
@@ -44,6 +40,7 @@ const workspace = [
 ]
 
 const keyboards = [
+  'Kinesis Advantage 2 (daily driver)',
   'Dygma',
   'Sofle Plus 2',
   'Silakka54',
@@ -139,7 +136,6 @@ const projects = [
   <ProjectCards client:only="vue" projects={projects} />
 
   <h2 id="beyond"><Mark client:visible type="highlight" color="#b7e4c7">Fun facts about me</Mark></h2>
-  <StackChips client:only="vue" label="Daily driver" items={keyboard} />
   <StackChips client:only="vue" label="Working environment" items={workspace} />
   <p class="soft chip-caption">Keyboard collection</p>
   <RoughList client:only="vue" items={keyboards} />
