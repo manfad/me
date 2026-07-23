@@ -1,0 +1,275 @@
+---
+import { sketchRect } from '../lib/sketch'
+
+interface Props {
+  seed?: number
+}
+
+const { seed = 42 } = Astro.props
+const border = sketchRect(seed)
+---
+
+<div class="hlpad">
+  <div class="hlpad-stage">
+    <svg class="hlpad-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      {
+        border.map((p) => (
+          <path
+            d={p.d}
+            fill="none"
+            stroke="currentColor"
+            stroke-width={p.strokeWidth}
+            vector-effect="non-scaling-stroke"
+          />
+        ))
+      }
+    </svg>
+    <canvas data-layer="committed" aria-hidden="true"></canvas>
+    <canvas data-layer="live" aria-hidden="true"></canvas>
+    <div class="hlpad-text"><slot /></div>
+  </div>
+
+  <div class="hlpad-tools">
+    <div class="hlpad-swatches" role="group" aria-label="Marker color">
+      <button type="button" class="active" data-color="255,213,79" style="--sw:#ffd54f" aria-label="Yellow marker"></button>
+      <button type="button" data-color="244,143,177" style="--sw:#f48fb1" aria-label="Pink marker"></button>
+      <button type="button" data-color="174,213,129" style="--sw:#aed581" aria-label="Green marker"></button>
+      <button type="button" data-color="129,212,250" style="--sw:#81d4fa" aria-label="Blue marker"></button>
+    </div>
+    <div class="hlpad-actions">
+      <button type="button" data-action="undo">undo</button>
+      <button type="button" data-action="clear">clear</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hlpad {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .hlpad-stage {
+    position: relative;
+    padding: 2rem 1.6rem;
+    min-height: 240px;
+    cursor: crosshair;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .hlpad-border {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    color: var(--line);
+  }
+
+  .hlpad-stage canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* text sits above the ink, like a real highlighter going under the letters */
+  .hlpad-text {
+    position: relative;
+    pointer-events: none;
+  }
+
+  .hlpad-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hlpad-swatches {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .hlpad-swatches button {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: var(--sw);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+
+  .hlpad-swatches button:hover {
+    transform: scale(1.15);
+  }
+
+  .hlpad-swatches button.active {
+    border-color: var(--fg);
+    transform: scale(1.15);
+  }
+
+  .hlpad-actions {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .hlpad-actions button {
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--fg-soft);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .hlpad-actions button:hover {
+    color: var(--fg);
+  }
+</style>
+
+<script>
+  import rough from 'roughjs'
+
+  const MARKER_WIDTH = 26
+  const MARKER_ALPHA = 0.45
+  const MIN_DIST = 6
+
+  interface Stroke {
+    points: [number, number][]
+    color: string
+    seed: number
+  }
+
+  document.querySelectorAll<HTMLElement>('.hlpad').forEach(initPad)
+
+  function initPad(root: HTMLElement) {
+    const stage = root.querySelector<HTMLElement>('.hlpad-stage')!
+    const committed = root.querySelector<HTMLCanvasElement>('[data-layer="committed"]')!
+    const live = root.querySelector<HTMLCanvasElement>('[data-layer="live"]')!
+    const rcCommitted = rough.canvas(committed)
+    const rcLive = rough.canvas(live)
+    const ctxCommitted = committed.getContext('2d')!
+    const ctxLive = live.getContext('2d')!
+
+    const strokes: Stroke[] = []
+    let current: Stroke | null = null
+    let activeColor = '255,213,79'
+    let raf = 0
+
+    const resize = () => {
+      const dpr = Math.min(devicePixelRatio || 1, 2)
+      const r = stage.getBoundingClientRect()
+      for (const c of [committed, live]) {
+        c.width = Math.round(r.width * dpr)
+        c.height = Math.round(r.height * dpr)
+        c.getContext('2d')!.setTransform(dpr, 0, 0, dpr, 0, 0)
+      }
+      redrawCommitted()
+    }
+    new ResizeObserver(resize).observe(stage)
+
+    // rough-notation's highlight is a fat low-detail stroke drawn twice
+    // (second pass reversed) — the overlap of the two translucent passes
+    // makes the darker marker bands.
+    function drawStroke(rc: ReturnType<typeof rough.canvas>, s: Stroke) {
+      const pts: [number, number][] =
+        s.points.length > 1
+          ? s.points
+          : [s.points[0], [s.points[0][0] + 4, s.points[0][1] + 0.5]]
+      const opts = {
+        stroke: `rgba(${s.color},${MARKER_ALPHA})`,
+        strokeWidth: MARKER_WIDTH,
+        roughness: 1.8,
+        bowing: 1,
+        disableMultiStroke: true,
+      }
+      rc.curve(pts, { ...opts, seed: s.seed })
+      rc.curve([...pts].reverse(), { ...opts, seed: s.seed + 7 })
+    }
+
+    function clearCanvas(ctx: CanvasRenderingContext2D, c: HTMLCanvasElement) {
+      ctx.clearRect(0, 0, c.width, c.height)
+    }
+
+    function redrawCommitted() {
+      clearCanvas(ctxCommitted, committed)
+      for (const s of strokes) drawStroke(rcCommitted, s)
+    }
+
+    function scheduleLiveDraw() {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        clearCanvas(ctxLive, live)
+        if (current) drawStroke(rcLive, current)
+      })
+    }
+
+    const toPoint = (e: PointerEvent): [number, number] => {
+      const r = stage.getBoundingClientRect()
+      return [e.clientX - r.left, e.clientY - r.top]
+    }
+
+    stage.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return
+      stage.setPointerCapture(e.pointerId)
+      current = {
+        points: [toPoint(e)],
+        color: activeColor,
+        seed: 1 + Math.floor(Math.random() * 2 ** 31),
+      }
+      scheduleLiveDraw()
+    })
+
+    stage.addEventListener('pointermove', (e) => {
+      if (!current) return
+      const events = e.getCoalescedEvents?.() ?? [e]
+      for (const ev of events) {
+        const p = toPoint(ev)
+        const last = current.points[current.points.length - 1]
+        if (Math.hypot(p[0] - last[0], p[1] - last[1]) < MIN_DIST) continue
+        current.points.push(p)
+      }
+      scheduleLiveDraw()
+    })
+
+    const finish = () => {
+      if (!current) return
+      strokes.push(current)
+      drawStroke(rcCommitted, current)
+      current = null
+      clearCanvas(ctxLive, live)
+    }
+    stage.addEventListener('pointerup', finish)
+    stage.addEventListener('pointercancel', () => {
+      current = null
+      clearCanvas(ctxLive, live)
+    })
+
+    root.querySelectorAll<HTMLButtonElement>('[data-color]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        activeColor = btn.dataset.color!
+        root.querySelectorAll('[data-color]').forEach((b) => b.classList.toggle('active', b === btn))
+      })
+    })
+
+    root.querySelector('[data-action="undo"]')?.addEventListener('click', () => {
+      strokes.pop()
+      redrawCommitted()
+    })
+
+    root.querySelector('[data-action="clear"]')?.addEventListener('click', () => {
+      strokes.length = 0
+      redrawCommitted()
+    })
+  }
+</script>

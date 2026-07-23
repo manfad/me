@@ -1,0 +1,170 @@
+<canvas class="hltrail" aria-hidden="true"></canvas>
+
+<style>
+  /* negative z-index: above the body background, below all page content,
+     so the ink passes under the letters like a real highlighter */
+  .hltrail {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+</style>
+
+<script>
+  import rough from 'roughjs'
+
+  // marker palette — one is picked at random for each new stroke
+  const PALETTE = [
+    '255,213,79', // yellow
+    '244,143,177', // pink
+    '174,213,129', // green
+    '129,212,250', // blue
+    '255,183,77', // orange
+    '179,157,219', // purple
+  ]
+  const MARKER_WIDTH = 22
+  const MARKER_ALPHA = 0.4
+  const ROUGHNESS = 1.8
+  const MIN_DIST = 5 // px between recorded points
+  const SEG_POINTS = 12 // commit segment after this many points
+  const BREAK_DIST = 150 // px jump + a time gap = cursor teleported, not a fast swipe
+  const BREAK_MS = 50 // events during a swipe arrive every ~8-16ms, well under this
+  const IDLE_MS = 200 // pause long enough → current segment starts fading
+  const HOLD_MS = 400 // fully visible for this long...
+  const FADE_MS = 1800 // ...then fades out over this long
+
+  interface Segment {
+    points: [number, number][]
+    seed: number
+    color: string
+    born: number
+  }
+
+  const canvas = document.querySelector<HTMLCanvasElement>('.hltrail')
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
+  const coarse = matchMedia('(pointer: coarse)').matches
+  if (canvas && !reduced && !coarse) init(canvas)
+
+  function init(canvas: HTMLCanvasElement) {
+    // main's fade-enter animation applies a transform, which turns it into
+    // the containing block for position:fixed — the canvas would anchor to
+    // the centered column instead of the viewport. Re-parent to body.
+    document.body.appendChild(canvas)
+    const ctx = canvas.getContext('2d')!
+    const rc = rough.canvas(canvas)
+
+    const resize = () => {
+      const dpr = Math.min(devicePixelRatio || 1, 2)
+      canvas.width = Math.round(innerWidth * dpr)
+      canvas.height = Math.round(innerHeight * dpr)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+    resize()
+    addEventListener('resize', resize, { passive: true })
+
+    const segments: Segment[] = []
+    let current: { points: [number, number][]; seed: number; color: string } | null = null
+    let cursor: [number, number] | null = null
+    let lastMove = 0
+    let raf = 0
+
+    const newSeed = () => 1 + Math.floor(Math.random() * 2 ** 31)
+
+    // random color per stroke, never the same one twice in a row
+    let lastColorIdx = -1
+    const newColor = () => {
+      let i = Math.floor(Math.random() * PALETTE.length)
+      if (i === lastColorIdx) i = (i + 1) % PALETTE.length
+      lastColorIdx = i
+      return PALETTE[i]
+    }
+
+    // same recipe as the pad: fat translucent curve drawn twice, second
+    // pass reversed — the overlap makes the darker marker bands
+    function drawSegment(points: [number, number][], seed: number, color: string) {
+      if (points.length < 2) return
+      const opts = {
+        stroke: `rgba(${color},${MARKER_ALPHA})`,
+        strokeWidth: MARKER_WIDTH,
+        roughness: ROUGHNESS,
+        bowing: 1,
+        disableMultiStroke: true,
+        preserveVertices: true, // jitter between points, not on them — stays on the mouse path
+      }
+      rc.curve(points, { ...opts, seed })
+      rc.curve([...points].reverse(), { ...opts, seed: seed + 7 })
+    }
+
+    function commit(now: number) {
+      if (current && current.points.length > 1) {
+        segments.push({ points: current.points, seed: current.seed, color: current.color, born: now })
+      }
+      current = null
+    }
+
+    addEventListener(
+      'pointermove',
+      (e) => {
+        const now = performance.now()
+        const p: [number, number] = [e.clientX, e.clientY]
+        cursor = p
+
+        if (current) {
+          const last = current.points[current.points.length - 1]
+          const dist = Math.hypot(p[0] - last[0], p[1] - last[1])
+          if (dist > BREAK_DIST && now - lastMove > BREAK_MS) {
+            commit(now) // big jump AND a time gap — cursor teleported, don't bridge
+          } else if (dist >= MIN_DIST) {
+            current.points.push(p)
+            if (current.points.length >= SEG_POINTS) {
+              // hand off to the fade queue; share the last point and keep the
+              // color so the next segment continues the same stroke seamlessly
+              const bridge = current.points[current.points.length - 1]
+              const color = current.color
+              commit(now)
+              current = { points: [bridge], seed: newSeed(), color }
+            }
+          }
+        }
+        if (!current) current = { points: [p], seed: newSeed(), color: newColor() }
+
+        lastMove = now
+        if (!raf) raf = requestAnimationFrame(tick)
+      },
+      { passive: true },
+    )
+
+    function tick(now: number) {
+      raf = 0
+      if (current && now - lastMove > IDLE_MS) commit(now)
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      for (let i = segments.length - 1; i >= 0; i--) {
+        const age = now - segments[i].born
+        if (age > HOLD_MS + FADE_MS) {
+          segments.splice(i, 1)
+          continue
+        }
+        ctx.globalAlpha = age < HOLD_MS ? 1 : 1 - (age - HOLD_MS) / FADE_MS
+        drawSegment(segments[i].points, segments[i].seed, segments[i].color)
+      }
+      ctx.globalAlpha = 1
+      if (current) {
+        // extend the in-progress stroke to the exact cursor position so the
+        // ink tip never lags behind the recorded points
+        const last = current.points[current.points.length - 1]
+        const tip =
+          cursor && Math.hypot(cursor[0] - last[0], cursor[1] - last[1]) > 1
+            ? [...current.points, cursor]
+            : current.points
+        drawSegment(tip, current.seed, current.color)
+      }
+
+      if (segments.length || current) raf = requestAnimationFrame(tick)
+    }
+  }
+</script>

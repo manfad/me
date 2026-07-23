@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro'
+import RoughHighlightTrail from '../components/RoughHighlightTrail.astro'
+---
+
+<Base title="Highlight trail — Manfred Tham" description="Move your mouse and it highlights the page, rough-notation style.">
+  <RoughHighlightTrail />
+
+  <section class="pad-demo">
+    <h1>Highlight trail</h1>
+    <p class="hint">
+      no clicking needed — just move the mouse. the marker follows you, slips <em>under</em> the
+      letters, and the ink fades away after a couple of seconds.
+    </p>
+
+    <p class="sample-big">Highlight</p>
+    <p class="sample-body">
+      Sweep across this paragraph like you're studying for an exam. Every stroke is a fat, wobbly
+      roughjs curve drawn twice — the same trick rough-notation uses — so the overlaps go darker
+      like a real marker. Stop moving and watch it melt away.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .pad-demo {
+    padding: 4rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hint {
+    color: var(--fg-soft);
+    margin-bottom: 1rem;
+  }
+
+  .sample-big {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+
+  .sample-body {
+    max-width: 34rem;
+  }
+</style>
